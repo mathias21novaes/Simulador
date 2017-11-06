@@ -1,0 +1,11 @@
+NOP	
+STA end		5
+LDA end		2
+ADD end		4
+OR end		3
+AND end		5
+NOT		2
+JMP end		3
+JN end		1
+JZ end		5
+HLT	
