@@ -5,8 +5,9 @@
 int main(void)
 {
   char linha[20];
-  char instrucoes[9][20];
-  int memoria[200],acumulador,IR,PC;
+  char instrucoes[3][20];
+  int memoria[100],acumulador,PC = 0,n,z;
+  int end[15],temp;
   int i = 0;
 
   FILE *arquivo;
@@ -24,66 +25,111 @@ int main(void)
     instrucoes[0][i] = linha[0];
     instrucoes[1][i] = linha[1];
     instrucoes[2][i] = linha[2];
-    instrucoes[3][i] = linha[3];
-    instrucoes[4][i] = linha[4];
-    instrucoes[5][i] = linha[5];
-    instrucoes[6][i] = linha[6];
-    instrucoes[7][i] = linha[7];
-    instrucoes[8][i] = linha[8];
+    temp = atoi(&linha[5]);
+    end[i] = temp;
     i++;
   }
 
   fclose(arquivo);
 
-  i = 0;
-
   while(1)
   {
-      if(instrucoes[0][i] == 'N' && instrucoes[1][i] == 'O' && instrucoes[2][i] == 'P')
+      if(instrucoes[0][PC] == 'N' && instrucoes[1][PC] == 'O' && instrucoes[2][PC] == 'P')
       {
-          printf("nop\n");
+          printf("nop");
+          printf(" %d\n",PC);
+          PC++;
       }
-      if(instrucoes[0][i] == 'S' && instrucoes[1][i] == 'T' && instrucoes[2][i] == 'A')
+      else if(instrucoes[0][PC] == 'S' && instrucoes[1][PC] == 'T' && instrucoes[2][PC] == 'A')
       {
-          printf("sta\n");
+          printf("sta");
+          printf(" %d\n",PC);
+          memoria[end[PC]] = acumulador;
+          PC++;
       }
-      if(instrucoes[0][i] == 'L' && instrucoes[1][i] == 'D' && instrucoes[2][i] == 'A')
+      else if(instrucoes[0][PC] == 'L' && instrucoes[1][PC] == 'D' && instrucoes[2][PC] == 'A')
       {
-          printf("lda\n");
+          printf("lda");
+          printf(" %d\n",PC);
+          acumulador = memoria[end[PC]];
+          if(acumulador < 0)
+          {
+              n = 1;
+          }
+          else
+          {
+              n = 0;
+          }
+          if(acumulador == 0)
+          {
+              z = 1;
+          }
+          else
+          {
+              z = 0;
+          }
+          PC++;
       }
-      if(instrucoes[0][i] == 'A' && instrucoes[1][i] == 'D' && instrucoes[2][i] == 'D')
+      else if(instrucoes[0][PC] == 'A' && instrucoes[1][PC] == 'D' && instrucoes[2][PC] == 'D')
       {
-          printf("add\n");
+          printf("add");
+          printf(" %d\n",PC);
+          acumulador += memoria[end[PC]];
+          PC++;
       }
-      if(instrucoes[0][i] == 'O' && instrucoes[1][i] == 'R')
+      else if(instrucoes[0][PC] == 'A' && instrucoes[1][PC] == 'D' && instrucoes[2][PC] == 'A')
       {
-          printf("or\n");
+          printf("ada");
+          printf(" %d\n",PC);
+          acumulador = end[PC];
+          PC++;
       }
-      if(instrucoes[0][i] == 'A' && instrucoes[1][i] == 'N' && instrucoes[2][i] == 'D')
+      else if(instrucoes[0][PC] == 'N' && instrucoes[1][PC] == 'O' && instrucoes[2][PC] == 'T')
       {
-          printf("and\n");
+          printf("not");
+          printf(" %d\n",PC);
+          PC++;
       }
-      if(instrucoes[0][i] == 'N' && instrucoes[1][i] == 'O' && instrucoes[2][i] == 'T')
+      else if(instrucoes[0][PC] == 'J' && instrucoes[1][PC] == 'M' && instrucoes[2][PC] == 'P')
       {
-          printf("not\n");
+          printf("jmp");
+          PC = end[PC];
+          printf(" %d\n",PC);
       }
-      if(instrucoes[0][i] == 'J' && instrucoes[1][i] == 'M' && instrucoes[2][i] == 'P')
+      else if(instrucoes[0][PC] == 'J' && instrucoes[1][PC] == 'N')
       {
-          printf("jmp\n");
+          printf("jn");
+          printf(" %d\n",PC);
+          if(n == 1)
+          {
+            PC = end[PC];
+            if(end[PC] == NULL)
+            {
+                break;
+            }
+          }
+          else
+          {
+            PC++;
+          }
       }
-      if(instrucoes[0][i] == 'J' && instrucoes[1][i] == 'N')
+      else if(instrucoes[0][PC] == 'J' && instrucoes[1][PC] == 'Z')
       {
-          printf("jn\n");
+          printf("jz");
+          printf(" %d\n",PC);
+          if(z == 1)
+          {
+            PC = end[PC];
+          }
+          else
+          {
+            PC++;
+          }
       }
-      if(instrucoes[0][i] == 'J' && instrucoes[1][i] == 'Z')
-      {
-          printf("jz\n");
-      }
-      if(instrucoes[0][i] == 'H' && instrucoes[1][i] == 'L' && instrucoes[2][i] == 'T')
+      else if(instrucoes[0][PC] == 'H' && instrucoes[1][PC] == 'L' && instrucoes[2][PC] == 'T')
       {
          break;
       }
-      i++;
   }
 
 
