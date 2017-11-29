@@ -2,9 +2,7 @@ NOP
 STA #5
 LDA #2
 ADD #4
-ADA #6
-NOT
-JMP #9
+JMP #5
 JN  #1
 JZ  #5
 HLT   
