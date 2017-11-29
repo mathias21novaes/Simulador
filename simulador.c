@@ -6,8 +6,8 @@ int main(void)
 {
   char linha[20];
   char instrucoes[3][1000];
-  int memoria[100],acumulador,PC = 0,n,z;
-  int end[15],temp;
+  int memoria[100], acumulador, PC = 0, n, z;
+  int end[15], temp;
   int i = 0;
 
   FILE *arquivo;
@@ -36,38 +36,45 @@ int main(void)
   {
       if(instrucoes[0][PC] == 'N' && instrucoes[1][PC] == 'O' && instrucoes[2][PC] == 'P')
       {
-          printf("PC = %d\n",PC);
-          printf("IR = NOP\n");
-          printf("PC +1\n");
+          printf("Instrucao: NOP\n\nEXECUTANDO...\n");
+          printf("Valor de PC = %d\n",PC);
+          printf("Instrucao lida pelo IR = NOP\n");
+          printf("No PC sera incrementado +1\n");
           PC++;
-          printf("PC =  %d\n",PC);
+          printf("Valor atual de PC =  %d\n",PC);
+          printf("\n");
+          system("pause");
           printf("\n");
       }
       else if(instrucoes[0][PC] == 'S' && instrucoes[1][PC] == 'T' && instrucoes[2][PC] == 'A')
       {
-          printf("PC =  %d\n",PC);
-          printf("IR = Armazenar #%d\n",end[PC]);
+          printf("Instrucao: STA\n\nEXECUTANDO...\n");
+          printf("Valor atual de PC =  %d\n",PC);
+          printf("Instrucao lida pelo IR = Armazenar #%d\n",end[PC]);
           printf("AC = %d\n",acumulador);
           printf("Memoria#%d = AC\n",end[PC]);
           memoria[end[PC]] = acumulador;
           printf("Memoria #%d = %d\n",end[PC],memoria[end[PC]]);
-          printf("PC +1\n");
+          printf("No PC sera incrementado +1\n");
           PC++;
-          printf("PC =  %d\n",PC);
+          printf("Valor atual de PC =  %d\n",PC);
           memoria[end[PC]] = acumulador;
+          printf("\n");
+          system("pause");
           printf("\n");
 
       }
       else if(instrucoes[0][PC] == 'L' && instrucoes[1][PC] == 'D' && instrucoes[2][PC] == 'A')
       {
-          printf("PC = %d\n",PC);
-          printf("IR = Carregar #%d\n",end[PC]);
+          printf("Instrucao: LDA\n\nEXECUTANDO...\n");
+          printf("Valor de PC = %d\n",PC);
+          printf("Instrucao lida pelo IR = Carregar #%d\n",end[PC]);
           printf("Memoria#%d = %d\n",end[PC],memoria[end[PC]]);
           printf("AC = %d\n",acumulador);
           printf("AC = Memoria#%d\n",end[PC]);
-          printf("PC +1\n");
+          printf("No PC sera incrementado +1\n");
           PC++;
-          printf("PC = %d\n",PC);
+          printf("Valor de PC = %d\n",PC);
           acumulador = memoria[end[PC]];
           printf("\n");
           if(acumulador < 0)
@@ -86,11 +93,14 @@ int main(void)
           {
               z = 0;
           }
+          system("pause");
+          printf("\n");
       }
       else if(instrucoes[0][PC] == 'A' && instrucoes[1][PC] == 'D' && instrucoes[2][PC] == 'D')
       {
-          printf("PC = %d\n",PC);
-          printf("IR = Somar #%d\n",end[PC]);
+          printf("Instrucao: ADD\n\nEXECUTANDO...\n");
+          printf("Valor de PC = %d\n",PC);
+          printf("Instrucao lida pelo IR = Somar #%d\n",end[PC]);
           printf("AC = %d\n",acumulador);
           printf("ULA = %d +\n",acumulador);
           printf("Memoria#%d = %d\n",end[PC],memoria[end[PC]]);
@@ -98,29 +108,34 @@ int main(void)
           printf("AC = ULA\n");
           acumulador += memoria[end[PC]];
           printf("AC = %d\n",acumulador);
-          printf("PC +1\n");
+          printf("No PC sera incrementado +1\n");
           PC++;
-          printf("PC = %d\n",PC);
+          printf("Valor de PC = %d\n",PC);
+          printf("\n");
+          system("pause");
           printf("\n");
       }
       else if(instrucoes[0][PC] == 'J' && instrucoes[1][PC] == 'M' && instrucoes[2][PC] == 'P')
       {
-          printf("PC = %d\n",PC);
-          printf("IR = Pular #%d\n",end[PC]);
+          printf("Instrucao: JMP\n\nEXECUTANDO...\n");
+          printf("Valor de PC = %d\n",PC);
+          printf("Instrucao lida pelo IR = Pular #%d\n",end[PC]);
           PC = end[PC];
-          printf("PC = %d\n",PC);
+          printf("Valor de PC = %d\n",PC);
+          printf("\n");
+          system("pause");
           printf("\n");
       }
       else if(instrucoes[0][PC] == 'J' && instrucoes[1][PC] == 'N')
       {
-          printf("PC = %d\n",PC);
-          printf(" %d\n",PC);
+          printf("Instrucao: JN\n\nEXECUTANDO...\n");
+          printf("Valor de PC = %d\n",PC);
           if(n == 1)
           {
             printf("N = TRUE\n");
-            printf("IR = Pular #%d",end[PC]);
+            printf("Instrucao lida pelo IR = Pular #%d",end[PC]);
             PC = end[PC];
-            printf("PC = %d\n",PC);
+            printf("Valor de PC = %d\n",PC);
             printf("\n");
             if(end[PC] == NULL)
             {
@@ -131,41 +146,53 @@ int main(void)
           else
           {
               printf("N = FALSE\n");
-              printf("PC +1\n");
+              printf("No PC sera incrementado +1\n");
               PC++;
-              printf("PC = %d\n",PC);
+              printf("Valor de PC = %d\n",PC);
               printf("\n");
           }
+          system("pause");
+          printf("\n");
       }
       else if(instrucoes[0][PC] == 'J' && instrucoes[1][PC] == 'Z')
       {
-          printf("PC = %d\n",PC);
+          printf("Instrucao: JZ\n\nEXECUTANDO...\n");
+          printf("Valor de PC = %d\n",PC);
           if(z == 1)
           {
             printf("Z = TRUE\n");
-            printf("IR = Pular #%d\n",end[PC]);
+            printf("Instrucao lida pelo IR = Pular #%d\n",end[PC]);
             PC = end[PC];
-            printf("PC = %d\n",PC);
+            printf("Valor de PC = %d\n",PC);
+            printf("\n");
+            system("pause");
             printf("\n");
           }
           else
           {
             printf("Z = FALSE\n");
-            printf("PC +1\n");
+            printf("No PC sera incrementado +1\n");
             PC++;
-            printf("PC = %d\n",PC);
+            printf("Valor de PC = %d\n",PC);
+            printf("\n");
+            system("pause");
             printf("\n");
           }
+
       }
       else if(instrucoes[0][PC] == 'H' && instrucoes[1][PC] == 'L' && instrucoes[2][PC] == 'T')
       {
+         printf("Instrucao: HLT\n\nEXECUTANDO...\n");
          break;
+         system("pause");
+         printf("\n");
       }
       else
       {
           printf("ERRO: comando nao identificado!\n");
           break;
-
+          system("pause");
+          printf("\n");
       }
   }
 
